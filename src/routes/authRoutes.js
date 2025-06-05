@@ -67,7 +67,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.get("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ message: "All fields are required" });
@@ -91,12 +91,8 @@ router.get("/login", async (req, res) => {
     });
   } catch (error) {
     console.log("Error in login route", error.message);
-    res.status(500).json({ message: "Internal server error Boss!!" });
+    res.status(500).json({ message: "Internal server error!!" });
   }
-});
-
-router.get("/logout", async (req, res) => {
-  res.send("logout");
 });
 
 export default router;
