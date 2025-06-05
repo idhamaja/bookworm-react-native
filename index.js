@@ -19,7 +19,7 @@ job.start();
 // Middleware
 app.use(express.json());
 app.use(cors(corsConfig));
-app.options("", cors(corsConfig));
+app.options("", cors(corsConfig))
 
 // Connect to DB first
 connectDB()
