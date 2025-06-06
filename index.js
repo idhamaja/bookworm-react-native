@@ -6,11 +6,6 @@ import { connectDB } from "./src/lib/db.js";
 import cors from "cors";
 import job from "./src/lib/cron.js";
 
-const corsConfig = {
-  origin: "*",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-};
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -18,8 +13,7 @@ job.start();
 
 // Middleware
 app.use(express.json());
-app.use(cors(corsConfig));
-app.options("", cors(corsConfig))
+app.use(cors());
 
 // Connect to DB first
 connectDB()

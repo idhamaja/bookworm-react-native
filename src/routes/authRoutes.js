@@ -68,15 +68,22 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+  // Changed from GET to POST
   try {
     const { email, password } = req.body;
-    if (!email || !password) return res.status(400).json({ message: "All fields are required" });
+    if (!email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Invalid email or password" }); 
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
 
     const isPasswordCorrect = await user.comparePassword(password);
-    if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid email or password" });
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
 
     const token = generateToken(user._id);
 
@@ -87,7 +94,7 @@ router.post("/login", async (req, res) => {
         username: user.username,
         email: user.email,
         profileImage: user.profileImage,
-      }
+      },
     });
   } catch (error) {
     console.log("Error in login route", error.message);
